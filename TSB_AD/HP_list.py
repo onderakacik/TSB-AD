@@ -78,6 +78,10 @@ Multi_algo_HP_dict = {
         'win_size': [32, 96, 192],
         'lr': [1e-3, 1e-4, 1e-5]
     },
+    'ModernTCN': {
+        'win_size': [32, 96, 192],
+        'lr': [5e-3, 5e-4, 5e-5]
+    },
     'FITS': {
         'win_size': [100, 200],
         'lr': [1e-3, 1e-4, 1e-5]
@@ -111,6 +115,7 @@ Optimal_Multi_algo_HP_dict = {
     'USAD': {'win_size': 100, 'lr': 0.001},  
     'Donut': {'win_size': 60, 'lr': 0.001},  
     'TimesNet': {'win_size': 96, 'lr': 0.0001},
+    'ModernTCN': {'win_size': 192, 'lr': 0.0001}, # TODO: update
     'FITS': {'win_size': 100, 'lr': 0.001},
     'OFA': {'win_size': 50}
 }
@@ -211,6 +216,10 @@ Uni_algo_HP_dict = {
         'win_size': [32, 96, 192],
         'lr': [1e-3, 1e-4, 1e-5]
     },
+    'ModernTCN': {
+        'win_size': [32, 96, 192],
+        'lr': [5e-3, 5e-4, 5e-5]
+    },
     'FITS': {
         'win_size': [100, 200],
         'lr': [1e-3, 1e-4, 1e-5]
@@ -262,6 +271,7 @@ Optimal_Uni_algo_HP_dict = {
     'USAD': {'win_size': 100, 'lr': 0.001},
     'Donut': {'win_size': 60, 'lr': 0.0001},  
     'TimesNet': {'win_size': 32, 'lr': 0.0001},
+    'ModernTCN': {'win_size': 192, 'lr': 0.0001}, # TODO: update
     'FITS': {'win_size': 100, 'lr': 0.0001},
     'OFA': {'win_size': 50},
     'Lag_Llama': {'win_size': 96},

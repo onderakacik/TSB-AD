@@ -5,7 +5,7 @@ from .utils.slidingWindows import find_length_rank
 Unsupervise_AD_Pool = ['SR', 'NORMA', 'Series2Graph', 'Sub_IForest', 'IForest', 'LOF', 'Sub_LOF', 'POLY', 'MatrixProfile', 'Sub_PCA', 'PCA', 'HBOS', 
                         'Sub_HBOS', 'KNN', 'Sub_KNN','KMeansAD', 'KMeansAD_U', 'KShapeAD', 'COPOD', 'CBLOF', 'COF', 'EIF', 'RobustPCA', 'Lag_Llama', 'TimesFM', 'Chronos', 'MOMENT_ZS']
 Semisupervise_AD_Pool = ['SAND', 'MCD', 'Sub_MCD', 'OCSVM', 'Sub_OCSVM', 'AutoEncoder', 'CNN', 'LSTMAD', 'TranAD', 'USAD', 'OmniAnomaly', 
-                        'AnomalyTransformer', 'TimesNet', 'FITS', 'Donut', 'OFA', 'MOMENT_FT']
+                        'AnomalyTransformer', 'TimesNet', 'FITS', 'Donut', 'OFA', 'MOMENT_FT', 'ModernTCN']
 
 def run_Unsupervise_AD(model_name, data, **kwargs):
     try:
@@ -312,6 +312,13 @@ def run_Donut(data_train, data_test, win_size=120, lr=1e-4, batch_size=128):
 def run_TimesNet(data_train, data_test, win_size=96, lr=1e-4):
     from .models.TimesNet import TimesNet
     clf = TimesNet(win_size=win_size, enc_in=data_test.shape[1], lr=lr, epochs=50)
+    clf.fit(data_train)
+    score = clf.decision_function(data_test)
+    return score.ravel()
+
+def run_ModernTCN(data_train, data_test, win_size=100, lr=1e-4):
+    from .models.ModernTCN import ModernTCN
+    clf = ModernTCN(win_size=win_size, enc_in=data_test.shape[1], lr=lr, epochs=50)
     clf.fit(data_train)
     score = clf.decision_function(data_test)
     return score.ravel()
