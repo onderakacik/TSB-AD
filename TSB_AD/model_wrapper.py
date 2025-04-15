@@ -316,9 +316,9 @@ def run_TimesNet(data_train, data_test, win_size=96, lr=1e-4):
     score = clf.decision_function(data_test)
     return score.ravel()
 
-def run_ModernTCN(data_train, data_test, win_size=100, lr=1e-4):
+def run_ModernTCN(data_train, data_test, win_size=96, lr=1e-3, large_size=13):
     from .models.ModernTCN import ModernTCN
-    clf = ModernTCN(win_size=win_size, enc_in=data_test.shape[1], lr=lr, epochs=50)
+    clf = ModernTCN(win_size=win_size, enc_in=data_test.shape[1], lr=lr, epochs=50, large_size=large_size)
     clf.fit(data_train)
     score = clf.decision_function(data_test)
     return score.ravel()

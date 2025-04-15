@@ -95,10 +95,9 @@ class Block(nn.Module):
 
     def forward(self, x):
         input = x
-        print(f"from forward of Block x.shape: {x.shape}")
         B, M, D, N = x.shape
         x = x.reshape(B, M*D, N)
-        x = self.dw(x) # HERE IS THE PROBLEM
+        x = self.dw(x)
         x = x.reshape(B, M, D, N)
         x = x.reshape(B*M, D, N)
         x = self.norm(x)
@@ -299,7 +298,6 @@ class ModernTCNModel(nn.Module):
         
     def forward_feature(self, x):
         B, M, L = x.shape
-        print(f"from forward_feature x.shape: {x.shape}")
         x = x.unsqueeze(-2)  # [B, M, 1, L]
         
         for i in range(self.num_stage):
@@ -331,17 +329,12 @@ class ModernTCNModel(nn.Module):
     
     def anomaly_detection(self, x_enc):
         # Apply RevIN normalization
-        print(f"from anomaly_detection x_enc.shape: {x_enc.shape}")
         if self.revin:
             x_enc = x_enc.permute(0, 2, 1)  # [B, L, M] -> [B, M, L]
             x_enc = self.revin_layer(x_enc, 'norm')
             # x_enc = x_enc.permute(0, 2, 1)  # [B, M, L] -> [B, L, M]
-        
-        print(f"from before forward_feature x_enc.shape: {x_enc.shape}")
-
         # Forward through the ModernTCN
         x = self.forward_feature(x_enc)  # [B, M, D, N]
-        print(f"from after forward_feature x.shape: {x.shape}")
         # Reconstruct the input
         x = x.permute(0, 1, 3, 2)  # [B, M, N, D]
         x = self.head_detection(x)  # [B, M, N, patch_size]
@@ -359,7 +352,6 @@ class ModernTCNModel(nn.Module):
         return x
 
     def forward(self, x_enc):
-        print(f"from forward in mtcn x_enc.shape: {x_enc.shape}")
         dec_out = self.anomaly_detection(x_enc)
         return dec_out  # [B, L, M]
 
